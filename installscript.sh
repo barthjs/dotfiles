@@ -10,7 +10,7 @@ curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 # Creating symlink for zsh preferences
 rm "$HOME"/.zshrc
-ln -s "$HOME"/.dotfiles/shell/.zshrc "$HOME"/.zshrc
+ln -s "$HOME"/.dotfiles/shell/zshrc "$HOME"/.zshrc
 
 # Installing zsh plugins
 echo 'Installing zsh-autosuggestions'
@@ -22,13 +22,4 @@ echo '----------------------------------'
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # Adding global gitignore
-ln -s "$HOME"/.dotfiles/shell/.global-gitignore "$HOME"/.global-gitignore
-git config --global core.excludesfile "$HOME"/.global-gitignore
-
-echo '+++++++++++++++++++++++++'
-echo 'Installing Extra Programs'
-echo '+++++++++++++++++++++++++'
-
-echo 'Installing zoxide'
-echo '-----------------'
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+git config --global core.excludesfile "$HOME"/.dotfiles/shell/.global-gitignore

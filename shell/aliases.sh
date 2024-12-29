@@ -34,7 +34,6 @@ alias sudo='sudo '
 
 # Network
 alias publicip="curl ifconfig.me/ip ; echo"
-alias localip="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # bat
 alias bata='bat --show-all'
@@ -64,6 +63,9 @@ alias lgit='lazygit'
 
 # Python
 alias py="python3"
+
+# Vim
+alias v="vim"
 
 # Visual Studio Code
 alias code="code ."

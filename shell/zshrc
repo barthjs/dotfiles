@@ -14,10 +14,15 @@ for file in ~/.dotfiles/shell/{exports.sh,aliases.sh,functions.sh}; do
 done
 
 # ~/.dotfiles-custom/shell/ can be used for custom settings
-for file in ~/.dotfiles-custom/shell/{exports.sh,aliases.sh,functions.sh,.zshrc}; do
+for file in ~/.dotfiles-custom/shell/{exports.sh,aliases.sh,functions.sh,zshrc}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
 
-# Other programs
+### Other programs
+
+# Zoxide
 eval "$(zoxide init zsh)"
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)

@@ -15,23 +15,17 @@ function archive() {
 
     if [ "$2" = "ex" ]; then
         if [ -f "$target" ]; then
-            unzip "$target"
-            echo "File '$target' has been unzipped."
+            unzip "$target" && echo "File '$target' has been unzipped."
         else
             echo "Error: Zip file '$target' does not exist."
             return 1
         fi
+    elif [ -e "$target" ]; then
+        zip -r "$zipfile" "$target" && echo "'$target' has been zipped into '$zipfile'."
     else
-        if [ -d "$target" ]; then
-            zip -r "$zipfile" "$target"
-            echo "Directory '$target' has been zipped into '$zipfile'."
-        elif [ -f "$target" ]; then
-            zip "$zipfile" "$target"
-            echo "File '$target' has been zipped into '$zipfile'."
-        else
-            echo "Error: '$target' does not exist."
-            return 1
-        fi
+        echo "Error: '$target' does not exist."
+        return 1
+
     fi
 }
 
@@ -47,23 +41,16 @@ function tarchive() {
 
     if [ "$2" = "ex" ]; then
         if [ -f "$target" ]; then
-            tar -xzf "$target"
-            echo "Archive '$target' has been extracted."
+            tar -xzvf "$target" && echo "Archive '$target' has been extracted."
         else
             echo "Error: Archive file '$target' does not exist."
             return 1
         fi
+    elif [ -e "$target" ]; then
+        tar -czvf "$tarfile" "$target" && echo "'$target' has been compressed into '$tarfile'."
     else
-        if [ -d "$target" ]; then
-            tar -czf "$tarfile" "$target"
-            echo "Directory '$target' has been compressed into '$tarfile'."
-        elif [ -f "$target" ]; then
-            tar -czf "$tarfile" "$target"
-            echo "File '$target' has been compressed into '$tarfile'."
-        else
-            echo "Error: '$target' does not exist."
-            return 1
-        fi
+        echo "Error: '$target' does not exist."
+        return 1
     fi
 }
 
@@ -119,4 +106,25 @@ function browse() {
 function weather() {
     local city="${1:-Stuttgart}"
     curl https://wttr.in/${city// /+}\?F
+}
+
+# bat git diff
+function batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
+# bat highlighting --help messages
+alias bathelp='bat --plain --language=helpc'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+
+# Change current working directory when exiting Yazi
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
 }
