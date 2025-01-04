@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# Hide "last login" line when starting a new terminal session
-touch "$HOME"/.hushlogin
+echo 'Installing dotfiles'
+echo '-------------------'
+echo 'This script will reset your terminal configuration.'
+echo 'Ensure you have backups of your .zshrc and other relevant files before proceeding.'
+read -p 'Are you sure you want to do this? (y/n) ' reply
+
+if [[ ! "$reply" =~ ^[Yy]$ ]]; then
+    echo "Operation cancelled."
+    exit 1
+fi
 
 echo 'Installing Oh My Zsh'
 echo '--------------------'
@@ -21,5 +29,13 @@ echo 'Installing zsh-syntax-highlighting'
 echo '----------------------------------'
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
+# Hide "last login" line when starting a new terminal session
+touch "$HOME"/.hushlogin
+
 # Adding global gitignore
-git config --global core.excludesfile "$HOME"/.dotfiles/shell/.global-gitignore
+git config --global core.excludesfile "$HOME"/.dotfiles/shell/global-gitignore
+
+echo '+++++++++++++++++++++++'
+echo "Installation completed."
+echo '+++++++++++++++++++++++'
+exit 0
