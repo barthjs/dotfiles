@@ -12,3 +12,40 @@ git clone https://github.com/barthjs/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
+
+These dotfiles are designed for Arch and Debian-based distros but should work on other distributions with minimal
+tweaks.
+
+#### What the installation script does
+
+- Deletes any existing **Zsh** and **Oh My Zsh** configurations.
+- Installs **Oh My Zsh** and essential plugins
+- Symlinks `.zshrc` which loads configs from `~/.dotfiles/shell`
+
+⚠️ Note: Back up any existing `.zshrc` or related files before running the script.
+
+## Recommended Programs
+
+To fully utilize the aliases and functions provided in these dotfiles, the following programs are recommended.
+
+- [bat](https://github.com/sharkdp/bat)
+- [eza](https://github.com/eza-community/eza)
+- [fd](https://github.com/sharkdp/fd)
+- [fzf](https://github.com/junegunn/fzf)
+- [yazi](https://github.com/sxyazi/yazi)
+- [zoxide](https://github.com/ajeetdsouza/zoxide)
+
+## Customization
+
+Add personal tweaks by creating the following files in the `~/.dotfiles/custom` directory:
+
+- `zshrc`: Add Zsh-specific configurations.
+- `aliases.sh`: Add aliases.
+- `functions.sh`: Define custom shell functions.
+- `exports.sh`: Set environment variables.
+
+These scripts will be automatically sourced.
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
