@@ -1,15 +1,24 @@
 #!/bin/bash
 
-echo 'Installing dotfiles'
-echo '-------------------'
-echo 'This script will reset your terminal configuration.'
-echo 'Ensure you have backups of your .zshrc and other relevant files before proceeding.'
-read -p 'Are you sure you want to do this? (y/n) ' reply
-
-if [[ ! "$reply" =~ ^[Yy]$ ]]; then
-    echo "Operation cancelled."
-    exit 1
+FORCE=false
+if [[ "$1" == "--force" || "$1" == "-f" ]]; then
+    FORCE=true
 fi
+
+# If --force or -f is not passed, ask for confirmation
+if [[ "$FORCE" == false ]]; then
+    echo 'This script will reset your terminal configuration.'
+    echo 'Ensure you have backups of your .zshrc and other relevant files before proceeding.'
+    read -p 'Are you sure you want to do this? (y/N) ' reply
+    if [[ ! "$reply" =~ ^[Yy]$ ]]; then
+        echo "Operation cancelled."
+        exit 1
+    fi
+fi
+
+echo '----------------------'
+echo 'Installing dotfiles...'
+echo '----------------------'
 
 echo 'Installing Oh My Zsh'
 echo '--------------------'
