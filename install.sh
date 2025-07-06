@@ -16,14 +16,10 @@ if [[ "$FORCE" == false ]]; then
     fi
 fi
 
-echo '----------------------'
-echo 'Installing dotfiles...'
-echo '----------------------'
-
 echo 'Installing Oh My Zsh'
 echo '--------------------'
 rm -rf "$HOME"/.oh-my-zsh
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
 # Create symlink for zsh preferences
 rm "$HOME"/.zshrc
@@ -44,4 +40,5 @@ git config --global core.excludesfile "$HOME"/.dotfiles/shell/global-gitignore
 echo '+++++++++++++++++++++++'
 echo "Installation completed."
 echo '+++++++++++++++++++++++'
+
 exit 0

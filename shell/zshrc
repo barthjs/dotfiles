@@ -6,6 +6,8 @@ DEFAULT_USER=$(whoami)
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf zsh-interactive-cd)
 
+zstyle ':omz:update' mode disabled
+
 source $ZSH/oh-my-zsh.sh
 
 # Load the shell dotfiles

@@ -24,9 +24,22 @@ tweaks.
 
 ⚠️ Note: Back up any existing `.zshrc` or related files before running the script.
 
+## Updates
+
+An `update.sh` script is included alongside the installation script.
+Run it to pull the latest changes from the repository and update Oh My Zsh along with its plugins.
+
+```shell
+cd ~/.dotfiles
+./update.sh
+
+# Or with the update alias
+update-dotfiles
+```
+
 ## Recommended Programs
 
-To fully utilize the aliases and functions provided in these dotfiles, the following programs are recommended.
+To fully use the aliases and functions provided in these dotfiles, the following programs are recommended.
 
 - [bat](https://github.com/sharkdp/bat)
 - [eza](https://github.com/eza-community/eza)

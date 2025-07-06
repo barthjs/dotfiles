@@ -1,3 +1,5 @@
+alias update-dotfiles="~/.dotfiles/update.sh"
+
 # Easier navigation for cd
 alias cd1="cd .."
 alias cd2="cd ../.."
