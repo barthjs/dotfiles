@@ -119,6 +119,29 @@ help() {
     "$@" --help 2>&1 | bathelp
 }
 
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+lazy_load_nvm() {
+    unset -f npm node nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+npm() {
+    lazy_load_nvm
+    npm $@
+}
+
+node() {
+    lazy_load_nvm
+    node $@
+}
+
+nvm() {
+    lazy_load_nvm
+    nvm $@
+}
+
 # Change current working directory when exiting Yazi
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
