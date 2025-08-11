@@ -25,11 +25,7 @@ alias lf="eza --group-directories-first -laf"
 alias rmd='rm -rf'
 alias arc="archive"
 alias tarc="tarchive"
-
-# Always enable colored `grep` output
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -57,9 +53,7 @@ alias dcrd="docker compose -f compose.dev.yaml restart"
 # Git
 alias gnah='git reset --hard;git clean -dfx'
 alias uncommit="git reset --soft HEAD~1"
-
-# Fastfetch
-alias ff="fastfetch"
+alias recommit="git reset --soft HEAD@{1}"
 
 # Lazygit
 alias lgit='lazygit'
