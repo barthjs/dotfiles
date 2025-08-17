@@ -102,32 +102,6 @@ function o() {
     fi
 }
 
-# Open a shell in a docker container
-function docker-ex() {
-    docker exec -it "$@" bash
-}
-
-# List docker containers with mapped ports
-function docker-ports() {
-    docker ps --format '{{.Names}}: {{.Ports}}' | grep -v '\[\]' | while IFS= read -r line; do
-        container_name="${line%%:*}"
-        ports="${line#*: }"
-        echo "$container_name: $ports"
-    done
-}
-
-# Open a url
-function browse() {
-    url="https://$@"
-    open "$url"
-}
-
-# Show the weather for a given city
-function weather() {
-    local city="${1:-Stuttgart}"
-    curl https://wttr.in/${city// /+}\?F
-}
-
 # bat git diff
 function batdiff() {
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
@@ -137,6 +111,29 @@ function batdiff() {
 alias bathelp='bat --plain --language=helpc'
 help() {
     "$@" --help 2>&1 | bathelp
+}
+
+# Open a Docker container shell (default: bash, optional: sh)
+function dex() {
+    local container=$1
+    local shell=${2:-bash}
+    docker exec -it "$container" "$shell"
+}
+
+# List all running Docker containers with their ports 
+function dports() {
+    docker ps --format '{{.Names}}: {{.Ports}}'
+}
+
+# List running Docker containers with only externally mapped ports
+function dmports() {
+    docker ps --format '{{.Names}}: {{.Ports}}' | while IFS= read -r line; do
+        container_name="${line%%:*}"
+        ports="${line#*: }"
+        if [[ "$ports" == *"->"* ]]; then
+            echo "$container_name: $ports"
+        fi
+    done
 }
 
 # Node Version Manager

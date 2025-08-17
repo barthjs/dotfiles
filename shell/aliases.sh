@@ -39,7 +39,6 @@ alias bata='bat --show-all'
 alias batp='bat --paging=never'
 
 # Docker
-alias dex="docker-ex"
 alias di="docker inspect"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
