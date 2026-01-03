@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 FORCE=false
 if [[ "$1" == "--force" || "$1" == "-f" ]]; then

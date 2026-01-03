@@ -1,10 +1,26 @@
 # Create a new directory and enter it
-function mkd() {
+mkd() {
     mkdir -p "$@" && cd "$@"
 }
 
+# Normalize 'open' across Linux and Windows.
+if grep -q WSL2 /proc/version; then
+    alias open='explorer.exe'
+else
+    alias open='xdg-open'
+fi
+
+# 'o' with no arguments opens the current directory, otherwise opens the given location
+o() {
+    if [ $# -eq 0 ]; then
+        open .
+    else
+        open "$@"
+    fi
+}
+
 # Zip or unzip a file or directory
-function archive() {
+archive() {
     if [ -z "$1" ]; then
         echo "Usage: archive <directory_or_file> [ex]"
         return 1
@@ -30,7 +46,7 @@ function archive() {
 }
 
 # Compress or extract a file or directory using tar and gz
-function tarchive() {
+tarchive() {
     if [ -z "$1" ]; then
         echo "Usage: tarchive <directory_or_file> [ex]"
         return 1
@@ -55,7 +71,7 @@ function tarchive() {
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
     local arg="-sbh"
 
     if [[ "$#" -gt 0 ]]; then
@@ -68,7 +84,7 @@ function fs() {
 # Lists the largest files under the specified directory.
 # <directory> - Directory to search in (required)
 # [count]     - Number of results to display (optional, default: 20)
-function largest-files() {
+largest-files() {
     if [[ -z "$1" ]]; then
         echo "Usage: $0 <directory> [count]"
         return
@@ -85,48 +101,31 @@ function largest-files() {
 
 }
 
-# Normalize 'open' across Linux and Windows.
-if grep -q WSL2 /proc/version; then
-    # Ubuntu on Windows using WSL2
-    alias open='explorer.exe'
-else
-    alias open='xdg-open'
-fi
-
-# 'o' with no arguments opens the current directory, otherwise opens the given location
-function o() {
-    if [ $# -eq 0 ]; then
-        open .
-    else
-        open "$@"
-    fi
-}
-
 # bat git diff
-function batdiff() {
+batdiff() {
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
 }
 
 # bat highlighting --help messages
-alias bathelp='bat --plain --language=helpc'
+alias bathelp='bat --plain --language=help'
 help() {
     "$@" --help 2>&1 | bathelp
 }
 
 # Open a Docker container shell (default: bash, optional: sh)
-function dex() {
+dex() {
     local container=$1
     local shell=${2:-bash}
     docker exec -it "$container" "$shell"
 }
 
-# List all running Docker containers with their ports 
-function dports() {
+# List all running Docker containers with their ports
+dports() {
     docker ps --format '{{.Names}}: {{.Ports}}'
 }
 
 # List running Docker containers with only externally mapped ports
-function dmports() {
+dmports() {
     docker ps --format '{{.Names}}: {{.Ports}}' | while IFS= read -r line; do
         container_name="${line%%:*}"
         ports="${line#*: }"
@@ -139,7 +138,7 @@ function dmports() {
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
 lazy_load_nvm() {
-    unset -f npm node nvm
+    unset -f npm npx node nvm
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 }
@@ -147,6 +146,11 @@ lazy_load_nvm() {
 npm() {
     lazy_load_nvm
     npm $@
+}
+
+npx() {
+    lazy_load_nvm
+    npx $@
 }
 
 node() {
@@ -159,8 +163,25 @@ nvm() {
     nvm $@
 }
 
+# Git
+git-create() {
+    git init
+    git add --all
+    git commit -m "Initial commit"
+}
+
+git-recreate() {
+    rm -rf .git
+    git-create
+}
+
+wip() {
+    git add --all
+    git commit -m "WIP"
+}
+
 # Change current working directory when exiting Yazi
-function y() {
+y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
