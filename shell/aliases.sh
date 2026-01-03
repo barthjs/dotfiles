@@ -1,4 +1,8 @@
-alias update-dotfiles="~/.dotfiles/update.sh"
+alias update-dotfiles="$HOME/.dotfiles/update.sh"
+alias c="clear"
+
+# Enable aliases to be sudo’ed
+alias sudo="sudo "
 
 # Easier navigation for cd
 alias cd1="cd .."
@@ -22,21 +26,21 @@ alias ll="eza --group-directories-first -l"
 alias la="eza --group-directories-first -la"
 alias ld="eza --group-directories-first -laD"
 alias lf="eza --group-directories-first -laf"
-alias rmd='rm -rf'
+alias rmd="rm -rf"
 alias arc="archive"
 alias tarc="tarchive"
-alias grep='grep --color=auto'
-
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
+alias grep="grep --color=auto"
 
 # Network
 alias ip4="curl -4 ifconfig.me/ip ; echo"
 alias ip6="curl -6 ifconfig.me/ip ; echo"
 
+# Ansible
+alias ap="ansible-playbook"
+
 # bat
-alias bata='bat --show-all'
-alias batp='bat --paging=never'
+alias bata="bat --show-all"
+alias batp="bat --paging=never"
 
 # Docker
 alias di="docker inspect"
@@ -50,12 +54,12 @@ alias dcsd="docker compose -f compose.dev.yaml stop"
 alias dcrd="docker compose -f compose.dev.yaml restart"
 
 # Git
-alias gnah='git reset --hard;git clean -dfx'
+alias gnah="git reset --hard;git clean -dfx"
 alias uncommit="git reset --soft HEAD~1"
 alias recommit="git reset --soft HEAD@{1}"
 
 # Lazygit
-alias lgit='lazygit'
+alias lgit="lazygit"
 
 # Python
 alias py="python3"
