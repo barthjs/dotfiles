@@ -13,8 +13,7 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-These dotfiles are designed for Arch and Debian-based distros but should work on other distributions with minimal
-tweaks.
+These dotfiles are designed for Arch and Debian-based distros but should work on other distributions with minimal tweaks.
 
 #### What the installation script does
 
@@ -22,7 +21,7 @@ tweaks.
 - Installs **Oh My Zsh** and essential plugins
 - Symlinks `.zshrc` which loads configs from `~/.dotfiles/shell`
 
-⚠️ Note: Back up any existing `.zshrc` or related files before running the script.
+> :warning: **Warning:** Back up any existing `.zshrc` or related files before running the script.
 
 ## Updates
 
